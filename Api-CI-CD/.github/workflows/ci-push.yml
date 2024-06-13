@@ -1,25 +1,26 @@
-name: CI
+name: CI/CD Pipeline
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
-      name: Checkout code
-
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '8.0'  
-
-    - name: Restore dependencies
-      run: dotnet restore ./Api-CI-CD/Api-CI-CD.csproj  
-
+        dotnet-version: '8.0'
     - name: Build
-      run: dotnet build ./Api-CI-CD/Api-CI-CD.csproj --no-restore
+      run: dotnet build ./API-ci-cd/API-ci-cd.csproj
+    - name: Test
+      run: dotnet test ./testApi/testApi.csproj
 
-    - name: Run tests
-      run: dotnet test ./testApi/testApi.csproj 
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: success()  
+    steps:
+    - uses: actions/checkout@v2
+    - name: Deploy
+      run: echo "Deploying to production"
