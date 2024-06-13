@@ -12,9 +12,10 @@ jobs:
       with:
         dotnet-version: '8.0'
     - name: Build
-      run: dotnet build ./Api-CI-CD/Api-CI-CD.csproj
+      run: dotnet build ./Api-CI-CD/Api-CI-CD/Api-CI-CD.csproj
     - name: Test
-      run: dotnet test ./testApi/testApi.csproj
+      run: dotnet test ./Api-CI-CD/TestApi/TestsApi.csproj
+
 
   deploy:
     needs: build-and-test
