@@ -12,7 +12,7 @@ jobs:
       with:
         dotnet-version: '8.0'
     - name: Build
-      run: dotnet build ./API-ci-cd/API-ci-cd.csproj
+      run: dotnet build ./Api-CI-CD/Api-CI-CD.csproj
     - name: Test
       run: dotnet test ./testApi/testApi.csproj
 
